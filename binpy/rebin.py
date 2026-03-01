@@ -37,14 +37,14 @@ def rebin(y0: np.array, x0: np.array, x1: np.array, integrator: Integrator = Con
     array([ 6.,  9., 13.])
 
     """
-    x0 = np.asfarray(x0)
-    y0 = np.asfarray(y0)
-    x1 = np.asfarray(x1)
+    x0 = np.asarray(x0, dtype=float)
+    y0 = np.asarray(y0, dtype=float)
+    x1 = np.asarray(x1, dtype=float)
 
     assert_sorted(x0)
     assert_sorted(x1)
 
-    xb = np.asfarray(integrator.breakpoints)
+    xb = np.asarray(integrator.breakpoints)
     xb = [(x0[0] <= xb) & (xb <= x0[1])]
     xn = reduce(np.union1d, [x0, x1, xb])
     y = _refine(y0, x0, xn, axis=axis, integral=integrator(xn))

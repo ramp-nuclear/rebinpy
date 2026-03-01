@@ -4,9 +4,9 @@ from binpy.utils import assert_sorted, bin_mids
 
 
 def fold(y0, x0, x1, axis=0):
-    x0 = np.asfarray(x0)
-    y0 = np.asfarray(y0)
-    x1 = np.asfarray(x1)
+    x0 = np.asarray(x0, dtype=float)
+    y0 = np.asarray(y0, dtype=float)
+    x1 = np.asarray(x1, dtype=float)
     assert_sorted(x0)
     assert_sorted(x1)
     if x1[0] < x0[0] or x1[-1] > x0[-1]:
