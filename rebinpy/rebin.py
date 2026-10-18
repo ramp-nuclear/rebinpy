@@ -41,6 +41,9 @@ def rebin(y0: np.array, x0: np.array, x1: np.array, integrator: Integrator | Non
     x0 = np.asarray(x0, dtype=float)
     y0 = np.asarray(y0, dtype=float)
     x1 = np.asarray(x1, dtype=float)
+    if not -y0.ndim <= axis < y0.ndim:
+        raise ValueError(f"axis {axis} is out of bounds for array of dimension {y0.ndim}")
+    axis %= y0.ndim
 
     assert_sorted(x0)
     assert_sorted(x1)
