@@ -37,10 +37,10 @@ class PiecewiseConstantIntegrator:
         if len(y) + 1 != len(x):
             raise ValueError("shapes of values and breakpoints do not match")
 
-        self.breakpoints = np.asfarray(x)
-        self._y = np.asfarray(y)
+        self.breakpoints = np.asarray(x, dtype=float)
+        self._y = np.asarray(y, dtype=float)
 
     def __call__(self, x: Sequence):
         mids = bin_mids(x)
-        idx = np.searchsorted(self.breakpoints, mids)
+        idx = np.searchsorted(self.breakpoints, mids, side="right") - 1
         return np.diff(x) * self._y[idx]
