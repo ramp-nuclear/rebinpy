@@ -2,10 +2,9 @@ import numpy as np
 import xarray
 
 import rebinpy
-from rebinpy.integrator import ConstantIntegrator
 
 
-def rebin(xarr, x1, integrator=ConstantIntegrator(), *, axis=0, prepend=None, append=None):
+def rebin(xarr, x1, integrator=None, *, axis=0, prepend=None, append=None):
     dims = list(xarr.dims)
     naxis = dims.index(axis) if axis in dims else range(len(dims))[axis]
     axis = dims[axis] if axis not in dims else axis
