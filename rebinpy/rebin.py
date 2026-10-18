@@ -44,7 +44,7 @@ def rebin(y0: np.array, x0: np.array, x1: np.array, integrator: Integrator = Con
     assert_sorted(x1)
 
     xb = np.asarray(integrator.breakpoints)
-    xb = [(x0[0] <= xb) & (xb <= x0[1])]
+    xb = xb[(x0[0] <= xb) & (xb <= x0[-1])]
     xn = reduce(np.union1d, [x0, x1, xb])
     y = _refine(y0, x0, xn, axis=axis, integral=integrator(xn))
     return fold(y, xn, x1, axis=axis)
