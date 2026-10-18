@@ -13,4 +13,4 @@ from rebinpy import fold
     ],
 )
 def test_1d_fold(y0, x0, x1, y1):
-    assert np.allclose(fold(y0, x0, x1), y1)
+    np.testing.assert_allclose(fold(y0, x0, x1), y1)
