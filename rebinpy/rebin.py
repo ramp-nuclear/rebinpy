@@ -8,7 +8,7 @@ from rebinpy.refine import _refine
 from rebinpy.utils import assert_sorted
 
 
-def rebin(y0: np.array, x0: np.array, x1: np.array, integrator: Integrator = ConstantIntegrator(), axis=0) -> np.array:
+def rebin(y0: np.array, x0: np.array, x1: np.array, integrator: Integrator | None = None, axis=0) -> np.array:
     """
     Parameters
     ----------
@@ -18,8 +18,8 @@ def rebin(y0: np.array, x0: np.array, x1: np.array, integrator: Integrator = Con
      The sorted boundaries of the original bins, one-dimensional array, whose length is the length of y plus 1.
     x1: np.array
      The sorted boundaries of the new bins. The end and start should be the same as x0.
-    integrator: Integrator
-     Integrator to compute the integral inside a bin.
+    integrator: Integrator, optional
+     Integrator to compute the integral inside a bin. Defaults to ConstantIntegrator.
     axis: int
      The axis of y over which to rebin.
 
@@ -36,6 +36,8 @@ def rebin(y0: np.array, x0: np.array, x1: np.array, integrator: Integrator = Con
     array([ 6.,  9., 13.])
 
     """
+    if integrator is None:
+        integrator = ConstantIntegrator()
     x0 = np.asarray(x0, dtype=float)
     y0 = np.asarray(y0, dtype=float)
     x1 = np.asarray(x1, dtype=float)
@@ -53,6 +55,6 @@ def rebin(y0: np.array, x0: np.array, x1: np.array, integrator: Integrator = Con
     return fold(y, xn, x1, axis=axis)
 
 
-def refine(y0, x0, x1, integrator=ConstantIntegrator(), axis=0):
+def refine(y0, x0, x1, integrator=None, axis=0):
     assert_sorted(x1)
     return rebin(y0, x0, np.union1d(x1, x0), integrator=integrator, axis=axis)
