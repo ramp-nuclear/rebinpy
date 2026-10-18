@@ -1,5 +1,6 @@
 from abc import abstractmethod
-from typing import Protocol, Sequence
+from collections.abc import Sequence
+from typing import Protocol
 
 import numpy as np
 from numpy.typing import ArrayLike
