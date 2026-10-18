@@ -42,6 +42,10 @@ def rebin(y0: np.array, x0: np.array, x1: np.array, integrator: Integrator = Con
 
     assert_sorted(x0)
     assert_sorted(x1)
+    if y0.shape[axis] + 1 != len(x0):
+        raise ValueError("length of y0 along axis must be one less than the length of x0")
+    if x1[0] < x0[0] or x1[-1] > x0[-1]:
+        raise ValueError("boundaries of x1 must lie within the boundaries of x0")
 
     xb = np.asarray(integrator.breakpoints)
     xb = [(x0[0] <= xb) & (xb <= x0[1])]
